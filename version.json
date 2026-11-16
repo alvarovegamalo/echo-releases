@@ -1,9 +1,9 @@
 {
- "version": "1.1.0",
- "build": 3,
- "url": "https://github.com/alvarovegamalo/echo-releases/releases/download/v1.1.0/Echo-1.1.0.dmg",
+ "version": "1.1.1",
+ "build": 4,
+ "url": "https://github.com/alvarovegamalo/echo-releases/releases/download/v1.1.1/Echo-1.1.1.dmg",
  "notes": {
-  "es": "Echo ahora viene firmado y notarizado por Apple. Mejor dictado cuando mezclas inglés y español. Suscripción mensual o anual.",
-  "en": "Echo is now signed and notarized by Apple. Better dictation when you mix English and Spanish. Monthly or yearly subscription."
+  "es": "Echo ahora es pago único: lo compras una vez y es tuyo.",
+  "en": "Echo is now a one-time purchase: buy it once and it's yours."
  }
 }

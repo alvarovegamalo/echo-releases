@@ -145,8 +145,8 @@
 <script>
   // ─── Edit these before publishing. Anything left empty is hidden on the page. ───
   const CONFIG = {
-    PRICE: "$5",                  // a month; the note gives the yearly price
-    PRICE_NOTE: "al mes · o $50 al año (dos meses gratis)",
+    PRICE: "$25",                 // one-time; launch price (then $35)
+    PRICE_NOTE: "pago único · precio de lanzamiento (luego $35)",
     WHATSAPP: "593999962080",     // personal number for now (a dedicated one later): only here, not in the app
     EMAIL: "avmlabs.dev.ec@gmail.com",
     DOWNLOAD: "https://github.com/alvarovegamalo/echo-releases/releases/latest/download/Echo.dmg",
@@ -243,8 +243,8 @@
 
   <section id="precio">
     <div class="eyebrow grad-text">Precio</div>
-    <h2>Pruébalo gratis. Después, $5 al mes.</h2>
-    <p class="sub">Usa Echo completo durante 14 días, sin tarjeta de crédito. Si te encanta, suscríbete por $5 al mes o $50 al año.</p>
+    <h2>Pruébalo gratis. Cómpralo una vez, es tuyo.</h2>
+    <p class="sub">Usa Echo completo durante 14 días, sin tarjeta de crédito. Si te encanta, lo compras una sola vez: sin suscripciones ni pagos mensuales.</p>
     <div class="price">
       <div class="plan">
         <h3>Prueba gratis</h3>
@@ -253,11 +253,11 @@
         <a class="btn btn-ghost js-download" href="#">Descargar Echo</a>
       </div>
       <div class="plan main">
-        <h3>Suscripción Echo</h3>
+        <h3>Licencia Echo</h3>
         <div class="amount" data-config="PRICE"></div>
         <div class="per" data-config="PRICE_NOTE"></div>
-        <ul class="checks"><li>Todo lo de la prueba, sin límites</li><li>Actualizaciones incluidas</li><li>Soporte directo por WhatsApp, en español</li></ul>
-        <a class="btn btn-primary js-buy" href="#">Suscribirme</a>
+        <ul class="checks"><li>Todo lo de la prueba, para siempre</li><li>Actualizaciones de Echo 1.x incluidas</li><li>Soporte directo por WhatsApp, en español</li></ul>
+        <a class="btn btn-primary js-buy" href="#">Comprar</a>
       </div>
     </div>
   </section>
@@ -272,7 +272,7 @@
       <details><summary>¿Qué idiomas entiende?</summary><p>Español e inglés, y detecta automáticamente cuál estás hablando. Funciona mejor si cada frase está en un solo idioma; si mezclas los dos dentro de la misma frase, a veces traduce una parte.</p></details>
       <details><summary>¿Qué Mac necesito?</summary><p>Cualquier Mac con macOS 13 (Ventura) o posterior, con procesador Intel o Apple Silicon (M1, M2, M3, M4). En los Mac con Apple Silicon es todavía más rápido.</p></details>
       <details class="js-unsigned"><summary>¿Cómo lo instalo?</summary><p>Abre el archivo descargado y arrastra Echo a Aplicaciones. Si macOS dice que no puede verificar la app, ve a <b>Configuración del Sistema › Privacidad y seguridad</b> y haz clic en <b>Abrir de todos modos</b>. Solo la primera vez. Al abrirlo, Echo te guía paso a paso para dar los permisos.</p></details>
-      <details><summary>¿Cómo me suscribo?</summary><p>Escríbenos por WhatsApp. Pagas por transferencia o Deuna, $5 por un mes o $50 por un año, y te enviamos tu clave; la pegas en Echo › Licencia y listo. Unos días antes de que venza, Echo te avisa para renovarla. Si no renuevas, no se cobra nada: simplemente deja de dictar, y tu historial se conserva.</p></details>
+      <details><summary>¿Cómo lo compro?</summary><p>Escríbenos por WhatsApp. Pagas una sola vez por transferencia o Deuna ($25 de lanzamiento, luego $35) y te enviamos tu clave; la pegas en Echo › Licencia y listo. Es tuya para siempre, con las actualizaciones de Echo 1.x incluidas. Sin suscripción.</p></details>
       <details><summary>¿Puedo usarlo en varias Mac?</summary><p>Cada licencia es para una Mac. Si cambias de computadora, puedes desactivarla en la anterior y activarla en la nueva.</p></details>
     </div>
   </section>
@@ -298,8 +298,8 @@
   document.querySelectorAll("[data-config]").forEach(el => { el.textContent = CONFIG[el.dataset.config] || ""; });
   document.querySelectorAll(".js-download").forEach(a => a.href = CONFIG.DOWNLOAD);
   const buy = CONFIG.WHATSAPP
-    ? "https://wa.me/" + CONFIG.WHATSAPP + "?text=" + encodeURIComponent("Hola, quiero suscribirme a Echo.")
-    : CONFIG.EMAIL ? "mailto:" + CONFIG.EMAIL + "?subject=" + encodeURIComponent("Suscripción a Echo") : null;
+    ? "https://wa.me/" + CONFIG.WHATSAPP + "?text=" + encodeURIComponent("Hola, quiero comprar Echo.")
+    : CONFIG.EMAIL ? "mailto:" + CONFIG.EMAIL + "?subject=" + encodeURIComponent("Comprar Echo") : null;
   document.querySelectorAll(".js-buy").forEach(a => buy ? (a.href = buy) : a.classList.add("hidden"));
   if (!CONFIG.PRICE) document.querySelector(".plan.main .amount").replaceWith(Object.assign(document.createElement("div"),
     { className: "per", style: "margin-top:14px", textContent: "Escríbenos para conocer el precio de lanzamiento." }));
