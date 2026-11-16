@@ -3,11 +3,67 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Echo · Dictado por voz para Mac en español e inglés</title>
+<title>Echo · Dictado por voz para Mac en español e inglés, sin internet</title>
+<link rel="canonical" href="https://echo.alvarovm.uk/">
 <meta name="description" content="Habla y Echo escribe en cualquier app de tu Mac, en español y en inglés. Rápido, preciso y 100 % privado: funciona sin internet. Prueba gratis 14 días.">
 <meta property="og:title" content="Echo · Habla. Echo escribe.">
 <meta property="og:description" content="Dictado por voz para Mac en español e inglés. Sin internet, 100 % privado. Prueba gratis 14 días.">
-<meta property="og:image" content="img/icon.png">
+<meta property="og:image" content="https://echo.alvarovm.uk/img/icon.png">
+<meta property="og:url" content="https://echo.alvarovm.uk/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Echo">
+<meta property="og:locale" content="es_EC">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "SoftwareApplication",
+ "name": "Echo",
+ "alternateName": "Echo dictado por voz",
+ "url": "https://echo.alvarovm.uk/",
+ "description": "Dictado por voz para Mac en español e inglés: habla y Echo escribe en cualquier app. Funciona sin internet y es 100 % privado: tu voz nunca sale de tu Mac. Incluye transcripción de reuniones y vocabulario propio.",
+ "applicationCategory": "UtilitiesApplication",
+ "operatingSystem": "macOS 13 o posterior (Apple Silicon e Intel)",
+ "inLanguage": [
+  "es",
+  "en"
+ ],
+ "image": "https://echo.alvarovm.uk/img/icon.png",
+ "downloadUrl": "https://github.com/alvarovegamalo/echo-releases/releases/latest/download/Echo.dmg",
+ "featureList": [
+  "Dictado en español e inglés, también mezclados",
+  "Funciona sin internet",
+  "Escribe en cualquier app del Mac",
+  "Transcripción de reuniones",
+  "Vocabulario propio",
+  "Prueba gratis de 14 días"
+ ],
+ "offers": {
+  "@type": "Offer",
+  "price": "25",
+  "priceCurrency": "USD",
+  "availability": "https://schema.org/InStock",
+  "url": "https://echo.alvarovm.uk/#precio",
+  "description": "Pago único, precio de lanzamiento"
+ },
+ "publisher": {
+  "@type": "Organization",
+  "name": "AVM Labs",
+  "url": "https://avmlabs.alvarovm.uk/",
+  "address": {
+   "@type": "PostalAddress",
+   "addressLocality": "Cuenca",
+   "addressRegion": "Azuay",
+   "addressCountry": "EC"
+  }
+ },
+ "author": {
+  "@type": "Person",
+  "name": "Alvaro Vega Malo",
+  "url": "https://avmlabs.alvarovm.uk/"
+ }
+}
+</script>
 <link rel="icon" href="img/icon.png">
 <style>
   :root {
@@ -128,6 +184,7 @@
   .final { margin: 110px 0 0; text-align: center; padding: 64px 24px; border-radius: 28px; background: radial-gradient(500px 220px at 50% 0%, rgba(140,128,255,.25), transparent 70%), var(--bg2); border: 1px solid var(--line); }
   .final img { width: 84px; height: 84px; margin-bottom: 16px; }
   footer { padding: 46px 0 60px; color: var(--dim); font-size: 14px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+  footer a { text-decoration: underline; text-underline-offset: 3px; }
 
   [data-config]:empty, .hidden { display: none !important; }
 
@@ -288,7 +345,7 @@
   </div>
 
   <footer>
-    <span>© <span id="year"></span> Echo · Hecho en Cuenca, Ecuador 🇪🇨</span>
+    <span>© <span id="year"></span> Echo · Hecho en Cuenca, Ecuador 🇪🇨 por <a href="https://avmlabs.alvarovm.uk/">AVM Labs</a></span>
     <span><span data-config="EMAIL"></span></span>
   </footer>
 </main>
