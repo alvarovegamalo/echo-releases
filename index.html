@@ -5,6 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Echo · Dictado por voz para Mac en español e inglés, sin internet</title>
 <link rel="canonical" href="https://echo.alvarovm.uk/">
+<link rel="alternate" hreflang="es" href="https://echo.alvarovm.uk/">
+<link rel="alternate" hreflang="en" href="https://echo.alvarovm.uk/en/">
+<link rel="alternate" hreflang="x-default" href="https://echo.alvarovm.uk/en/">
 <meta name="description" content="Habla y Echo escribe en cualquier app de tu Mac, en español y en inglés. Rápido, preciso y 100 % privado: funciona sin internet. Prueba gratis 14 días.">
 <meta property="og:title" content="Echo · Habla. Echo escribe.">
 <meta property="og:description" content="Dictado por voz para Mac en español e inglés. Sin internet, 100 % privado. Prueba gratis 14 días.">
@@ -13,6 +16,7 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Echo">
 <meta property="og:locale" content="es_EC">
+<meta property="og:locale:alternate" content="en_US">
 <meta name="twitter:card" content="summary">
 <script type="application/ld+json">
 {
@@ -185,11 +189,14 @@
   .final img { width: 84px; height: 84px; margin-bottom: 16px; }
   footer { padding: 46px 0 60px; color: var(--dim); font-size: 14px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
   footer a { text-decoration: underline; text-underline-offset: 3px; }
+  .lang { font-size: 14px; color: var(--muted); }
+  .lang:hover { color: var(--text); }
 
   [data-config]:empty, .hidden { display: none !important; }
 
   @media (max-width: 860px) {
     nav .links { display: none; }
+    .lang { margin-left: auto; }
     .strip, .grid, .steps, .price, .split { grid-template-columns: 1fr; }
     .strip { grid-template-columns: 1fr 1fr; }
     .foot .hints { display: none; }
@@ -217,6 +224,7 @@
     <div class="links">
       <a href="#funciones">Funciones</a><a href="#como">Cómo funciona</a><a href="#reuniones">Reuniones</a><a href="#precio">Precio</a><a href="#preguntas">Preguntas</a>
     </div>
+    <a class="lang" href="en/" hreflang="en" lang="en">English</a>
     <a class="btn btn-primary js-download" href="#">Probar gratis</a>
   </div>
 </nav>
@@ -346,6 +354,7 @@
 
   <footer>
     <span>© <span id="year"></span> Echo · Hecho en Cuenca, Ecuador 🇪🇨 por <a href="https://avmlabs.alvarovm.uk/">AVM Labs</a></span>
+    <span>Comparar: <a href="vs/superwhisper.html">Echo vs superwhisper</a> · <a href="vs/wispr-flow.html">Alternativa a Wispr Flow</a></span>
     <span><span data-config="EMAIL"></span></span>
   </footer>
 </main>
