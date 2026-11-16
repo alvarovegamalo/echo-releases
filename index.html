@@ -1,0 +1,367 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Echo · Dictado por voz para Mac en español e inglés</title>
+<meta name="description" content="Habla y Echo escribe en cualquier app de tu Mac, en español y en inglés. Rápido, preciso y 100 % privado: funciona sin internet. Prueba gratis 14 días.">
+<meta property="og:title" content="Echo · Habla. Echo escribe.">
+<meta property="og:description" content="Dictado por voz para Mac en español e inglés. Sin internet, 100 % privado. Prueba gratis 14 días.">
+<meta property="og:image" content="img/icon.png">
+<link rel="icon" href="img/icon.png">
+<style>
+  :root {
+    --bg: #0a0a0f; --bg2: #12121a; --card: #16161f; --line: rgba(255,255,255,.08);
+    --text: #f2f2f7; --muted: #a1a1b3; --dim: #8e8ea0;
+    --c1: #4dd9f2; --c2: #8c80ff; --c3: #f272d9;
+    --grad: linear-gradient(90deg, var(--c1), var(--c2) 50%, var(--c3));
+    --radius: 18px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font: 17px/1.55 -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, sans-serif; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+  a { color: inherit; text-decoration: none; }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+  .grad-text { background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+  /* Nav */
+  nav { position: sticky; top: 0; z-index: 10; backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); background: rgba(10,10,15,.72); border-bottom: 1px solid var(--line); }
+  nav .wrap { display: flex; align-items: center; height: 64px; gap: 28px; }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 19px; }
+  .brand img { width: 30px; height: 30px; }
+  nav .links { display: flex; gap: 24px; margin-left: auto; font-size: 15px; color: var(--muted); }
+  nav .links a:hover { color: var(--text); }
+  .btn { display: inline-flex; align-items: center; gap: 8px; padding: 13px 22px; border-radius: 12px; font-weight: 600; font-size: 16px; transition: transform .15s, box-shadow .15s, background .15s; cursor: pointer; border: 0; }
+  .btn:hover { transform: translateY(-1px); }
+  .btn-primary { background: var(--grad); color: #0a0a0f; box-shadow: 0 6px 18px rgba(0,0,0,.45); }
+  .btn-ghost { background: rgba(255,255,255,.06); border: 1px solid var(--line); color: var(--text); }
+  nav .btn { padding: 9px 16px; font-size: 14px; }
+
+  /* Hero */
+  .hero { position: relative; padding: 90px 0 70px; text-align: center; }
+  .hero::before { content: ""; position: absolute; inset: -200px 0 auto; height: 700px; background: radial-gradient(600px 300px at 30% 30%, rgba(77,217,242,.16), transparent 70%), radial-gradient(600px 300px at 70% 35%, rgba(242,114,217,.14), transparent 70%); pointer-events: none; }
+  .pill { display: inline-flex; gap: 8px; align-items: center; padding: 6px 14px; border-radius: 99px; background: rgba(255,255,255,.05); border: 1px solid var(--line); font-size: 14px; color: var(--muted); }
+  .pill b { color: var(--text); font-weight: 600; }
+  h1 { font-size: clamp(44px, 7.5vw, 84px); line-height: 1.02; letter-spacing: -.035em; margin: 22px 0 18px; font-weight: 800; }
+  .lead { font-size: clamp(18px, 2.2vw, 22px); color: var(--muted); max-width: 680px; margin: 0 auto 34px; }
+  .cta { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+  .fine { margin-top: 14px; font-size: 14px; color: var(--dim); }
+
+  /* Demo: replica of Echo's recording card + a text box being filled */
+  .demo { position: relative; margin: 64px auto 0; max-width: 620px; }
+  .card { background: #151519; border-radius: 22px; border: 1px solid rgba(255,255,255,.14); box-shadow: 0 30px 80px rgba(0,0,0,.6), 0 0 0 1px rgba(0,0,0,.4); overflow: hidden; }
+  .card canvas { display: block; width: 100%; height: 96px; }
+  .card .foot { display: flex; align-items: center; gap: 10px; padding: 0 18px; height: 46px; background: rgba(255,255,255,.05); font-size: 14px; color: rgba(255,255,255,.85); font-weight: 500; }
+  .dot { width: 9px; height: 9px; border-radius: 50%; background: #ff4550; box-shadow: 0 0 0 0 rgba(255,69,80,.6); animation: pulse 1.2s infinite; }
+  @keyframes pulse { 70% { box-shadow: 0 0 0 9px rgba(255,69,80,0); } 100% { box-shadow: 0 0 0 0 rgba(255,69,80,0); } }
+  .foot .sep { color: rgba(255,255,255,.35); }
+  .foot .time { color: rgba(255,255,255,.7); font-variant-numeric: tabular-nums; }
+  .foot .hints { margin-left: auto; display: flex; gap: 4px; align-items: center; color: rgba(255,255,255,.7); }
+  kbd { font: 600 12px/1 -apple-system, sans-serif; color: #fff; background: rgba(255,255,255,.14); border-radius: 5px; padding: 4px 6px; min-width: 21px; text-align: center; }
+  .hints .gap { width: 10px; }
+  .doc { margin: 22px auto 0; text-align: left; background: #fbfbfd; color: #1d1d22; border-radius: 14px; padding: 18px 20px; min-height: 92px; font-size: 17px; box-shadow: 0 20px 60px rgba(0,0,0,.45); }
+  .doc .app { font-size: 12px; color: #63636f; margin-bottom: 8px; display: flex; gap: 6px; align-items: center; }
+  .doc .app i { width: 9px; height: 9px; border-radius: 50%; display: inline-block; background: #ff5f57; box-shadow: 13px 0 #febc2e, 26px 0 #28c840; margin-right: 34px; }
+  .caret { display: inline-block; width: 2px; height: 1.1em; background: #6b5cff; vertical-align: -3px; animation: blink 1s steps(1) infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  /* Strip */
+  .strip { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; margin: 80px 0 0; }
+  .strip div { background: var(--bg2); padding: 26px 22px; }
+  .strip b { display: block; font-size: 30px; letter-spacing: -.02em; }
+  .strip span { color: var(--muted); font-size: 15px; }
+
+  section { padding: 100px 0 0; }
+  .eyebrow { font-size: 14px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+  h2 { font-size: clamp(32px, 4.4vw, 50px); letter-spacing: -.03em; line-height: 1.08; margin: 12px 0 16px; font-weight: 800; }
+  .sub { color: var(--muted); font-size: 19px; max-width: 640px; }
+
+  /* Features */
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 44px; }
+  .feat { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 24px;
+          display: grid; grid-template-columns: auto 1fr; column-gap: 14px; align-items: start; align-content: start; }
+  .feat .ic { font-size: 22px; line-height: 1.2; grid-row: span 2; }
+  .feat h3 { font-size: 19px; margin-bottom: 8px; letter-spacing: -.01em; }
+  .feat p { color: var(--muted); font-size: 15.5px; }
+
+  /* Steps */
+  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 44px; counter-reset: s; }
+  .step { padding: 26px; border-radius: var(--radius); background: linear-gradient(180deg, rgba(255,255,255,.04), transparent); border: 1px solid var(--line);
+          display: grid; grid-template-columns: auto 1fr; column-gap: 14px; align-items: start; align-content: start; }
+  .step::before { counter-increment: s; content: counter(s); font-size: 34px; font-weight: 800; line-height: 1; grid-row: span 3;
+                  background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .step .keys { grid-column: 2; }
+  .step h3 { font-size: 19px; margin-bottom: 6px; }
+  .step p { color: var(--muted); font-size: 15.5px; }
+  .step .keys { margin-top: 12px; display: flex; gap: 4px; }
+
+  /* Meetings */
+  .split { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+  .transcript { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 22px 24px; font-size: 15.5px; }
+  .line { display: grid; grid-template-columns: 48px 1fr; gap: 10px; padding: 8px 0; }
+  .line time { color: var(--dim); font-variant-numeric: tabular-nums; font-size: 13px; padding-top: 3px; text-align: right; }
+  .who { font-size: 12.5px; font-weight: 700; }
+  .who.you { color: #5a9aff; } .who.oth { color: #40bf8c; }
+  ul.checks { list-style: none; margin-top: 22px; }
+  ul.checks li { padding: 6px 0 6px 30px; position: relative; color: var(--muted); }
+  ul.checks li::before { content: "✓"; position: absolute; left: 0; top: 6px; color: var(--c1); font-weight: 800; }
+  ul.checks b { color: var(--text); font-weight: 600; }
+
+  /* Pricing */
+  .price { margin-top: 44px; display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .plan { background: var(--card); border: 1px solid var(--line); border-radius: 22px; padding: 32px; }
+  .plan.main { border: 1px solid transparent; background: linear-gradient(var(--card), var(--card)) padding-box, var(--grad) border-box; }
+  .plan h3 { font-size: 22px; }
+  .plan .amount { font-size: 46px; font-weight: 800; letter-spacing: -.03em; margin: 10px 0 2px; }
+  .plan .per { color: var(--muted); font-size: 15px; margin-bottom: 18px; }
+  .plan .btn { margin-top: 22px; width: 100%; justify-content: center; }
+
+  /* FAQ */
+  .faq { margin-top: 40px; max-width: 820px; }
+  details { border-bottom: 1px solid var(--line); padding: 20px 0; }
+  summary { cursor: pointer; font-size: 18px; font-weight: 600; list-style: none; display: flex; justify-content: space-between; gap: 16px; }
+  summary::after { content: "+"; color: var(--muted); font-weight: 400; font-size: 24px; line-height: 1; }
+  details[open] summary::after { content: "–"; }
+  details p { color: var(--muted); margin-top: 12px; font-size: 16px; }
+
+  /* Final CTA + footer */
+  .final { margin: 110px 0 0; text-align: center; padding: 64px 24px; border-radius: 28px; background: radial-gradient(500px 220px at 50% 0%, rgba(140,128,255,.25), transparent 70%), var(--bg2); border: 1px solid var(--line); }
+  .final img { width: 84px; height: 84px; margin-bottom: 16px; }
+  footer { padding: 46px 0 60px; color: var(--dim); font-size: 14px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+
+  [data-config]:empty, .hidden { display: none !important; }
+
+  @media (max-width: 860px) {
+    nav .links { display: none; }
+    .strip, .grid, .steps, .price, .split { grid-template-columns: 1fr; }
+    .strip { grid-template-columns: 1fr 1fr; }
+    .foot .hints { display: none; }
+  }
+  @media (prefers-reduced-motion: reduce) { * { animation: none !important; scroll-behavior: auto; } }
+</style>
+</head>
+<body>
+
+<script>
+  // ─── Edit these before publishing. Anything left empty is hidden on the page. ───
+  const CONFIG = {
+    PRICE: "$5",                  // a month; the note gives the yearly price
+    PRICE_NOTE: "al mes · o $50 al año (dos meses gratis)",
+    WHATSAPP: "593999962080",     // personal number for now (a dedicated one later): only here, not in the app
+    EMAIL: "avmlabs.dev.ec@gmail.com",
+    DOWNLOAD: "https://github.com/alvarovegamalo/echo-releases/releases/latest/download/Echo.dmg",
+    NOTARIZED: true,              // true once the app is signed & notarized by Apple (hides the "Open anyway" tip)
+  };
+</script>
+
+<nav>
+  <div class="wrap">
+    <a class="brand" href="#"><img src="img/icon.png" alt="">Echo</a>
+    <div class="links">
+      <a href="#funciones">Funciones</a><a href="#como">Cómo funciona</a><a href="#reuniones">Reuniones</a><a href="#precio">Precio</a><a href="#preguntas">Preguntas</a>
+    </div>
+    <a class="btn btn-primary js-download" href="#">Probar gratis</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="pill">🇪🇨 Hecho en Cuenca · <b>para Mac</b></span>
+    <h1>Habla.<br><span class="grad-text">Echo escribe.</span></h1>
+    <p class="lead">Dicta en cualquier app de tu Mac, en español y en inglés. Rápido, preciso y 100&nbsp;% privado: tu voz nunca sale de tu computadora.</p>
+    <div class="cta">
+      <a class="btn btn-primary js-download" href="#">Descargar · prueba gratis 14 días</a>
+      <a class="btn btn-ghost" href="#como">Ver cómo funciona</a>
+    </div>
+    <p class="fine">macOS 13 o posterior · Mac con Intel o Apple Silicon · sin tarjeta de crédito</p>
+
+    <div class="demo" aria-hidden="true">
+      <div class="card">
+        <canvas id="wave"></canvas>
+        <div class="foot">
+          <span class="dot"></span><span>Detección automática</span><span class="sep">·</span><span class="time" id="clock">0:00</span>
+          <span class="hints">Detener <kbd>⌃</kbd><kbd>⌥</kbd><kbd>Espacio</kbd><span class="gap"></span>Cancelar <kbd>esc</kbd></span>
+        </div>
+      </div>
+      <div class="doc"><div class="app"><i></i><span id="appname">Correo</span></div><span id="typed"></span><span class="caret"></span></div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="strip">
+    <div><b class="grad-text">~1 s</b><span>de espera por frase</span></div>
+    <div><b>ES + EN</b><span>detecta el idioma solo</span></div>
+    <div><b>0 bytes</b><span>enviados a internet</span></div>
+    <div><b>Sin internet</b><span>funciona en cualquier lugar</span></div>
+  </div>
+
+  <section id="funciones">
+    <div class="eyebrow grad-text">Funciones</div>
+    <h2>Escribe 3 veces más rápido,<br>sin tocar el teclado.</h2>
+    <p class="sub">Hablas unas 150 palabras por minuto; escribes unas 40. Echo convierte tu voz en texto limpio, con puntuación, donde está tu cursor.</p>
+    <div class="grid">
+      <div class="feat"><div class="ic">⌨️</div><h3>Funciona en todas tus apps</h3><p>Correo, WhatsApp Web, Word, Google Docs, Notion, Slack… Si puedes escribir ahí, puedes dictar ahí.</p></div>
+      <div class="feat"><div class="ic">🗣️</div><h3>Bilingüe de verdad</h3><p>Habla en español o en inglés y Echo lo reconoce solo. Con tildes, ñ y signos de pregunta ¿así? como debe ser.</p></div>
+      <div class="feat"><div class="ic">🔒</div><h3>Privado por diseño</h3><p>La inteligencia artificial corre dentro de tu Mac. Ni tu voz ni tus textos se envían a ningún servidor. Nunca.</p></div>
+      <div class="feat"><div class="ic">👥</div><h3>Transcribe tus reuniones</h3><p>Graba llamadas de Zoom, Meet o Teams y obtén la transcripción con quién dijo qué: Tú y Otros.</p></div>
+      <div class="feat"><div class="ic">📖</div><h3>Aprende tus palabras</h3><p>Agrega nombres de clientes, marcas o términos técnicos y Echo los escribirá bien siempre.</p></div>
+      <div class="feat"><div class="ic">⚡</div><h3>Tu atajo, tu estilo</h3><p>Elige la combinación de teclas que quieras, o mantén una tecla para hablar y suéltala para escribir.</p></div>
+    </div>
+  </section>
+
+  <section id="como">
+    <div class="eyebrow grad-text">Cómo funciona</div>
+    <h2>Tres pasos. Eso es todo.</h2>
+    <div class="steps">
+      <div class="step"><h3>Presiona tu atajo</h3><p>En cualquier app, donde esté tu cursor. Aparece una pequeña ventana con las ondas de tu voz.</p><div class="keys"><kbd>⌃</kbd><kbd>⌥</kbd><kbd>Espacio</kbd></div></div>
+      <div class="step"><h3>Habla con naturalidad</h3><p>En español, en inglés, rápido o despacio. Haz pausas para pensar; Echo espera.</p></div>
+      <div class="step"><h3>Presiona otra vez</h3><p>En un segundo, el texto aparece escrito, con mayúsculas y puntuación. Listo para enviar.</p></div>
+    </div>
+  </section>
+
+  <section id="reuniones">
+    <div class="split">
+      <div>
+        <div class="eyebrow grad-text">Reuniones</div>
+        <h2>Nunca más tomes notas en una llamada.</h2>
+        <p class="sub">Cuando empieza una llamada, Echo te ofrece grabarla. Al colgar, tienes la transcripción completa, separada por quién habló.</p>
+        <ul class="checks">
+          <li><b>Zoom, Google Meet, Teams, Slack y FaceTime</b>: detecta la llamada solo.</li>
+          <li><b>Sin bots</b>: nadie más ve que estás transcribiendo.</li>
+          <li><b>Copia la transcripción</b> con un clic para tu informe o tu correo.</li>
+        </ul>
+      </div>
+      <div class="transcript" aria-label="Ejemplo de transcripción">
+        <div class="line"><time>0:00</time><div><div class="who you">Tú</div>Buenos días a todos, gracias por conectarse. Empecemos con el presupuesto de la nueva página web.</div></div>
+        <div class="line"><time>0:11</time><div><div class="who oth">Otros</div>Claro. Estimamos $12.000 para el diseño y otros $8.000 para el desarrollo.</div></div>
+        <div class="line"><time>0:22</time><div><div class="who you">Tú</div>Me parece razonable. ¿Podemos tener la primera versión para finales de marzo?</div></div>
+        <div class="line"><time>0:32</time><div><div class="who oth">Otros</div>Marzo es justo, pero es posible si cerramos los requisitos la próxima semana.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="precio">
+    <div class="eyebrow grad-text">Precio</div>
+    <h2>Pruébalo gratis. Después, $5 al mes.</h2>
+    <p class="sub">Usa Echo completo durante 14 días, sin tarjeta de crédito. Si te encanta, suscríbete por $5 al mes o $50 al año.</p>
+    <div class="price">
+      <div class="plan">
+        <h3>Prueba gratis</h3>
+        <div class="amount">$0</div><div class="per">14 días · todas las funciones</div>
+        <ul class="checks"><li>Dictado ilimitado en español e inglés</li><li>Reuniones y vocabulario</li><li>Sin tarjeta, sin registro</li></ul>
+        <a class="btn btn-ghost js-download" href="#">Descargar Echo</a>
+      </div>
+      <div class="plan main">
+        <h3>Suscripción Echo</h3>
+        <div class="amount" data-config="PRICE"></div>
+        <div class="per" data-config="PRICE_NOTE"></div>
+        <ul class="checks"><li>Todo lo de la prueba, sin límites</li><li>Actualizaciones incluidas</li><li>Soporte directo por WhatsApp, en español</li></ul>
+        <a class="btn btn-primary js-buy" href="#">Suscribirme</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="preguntas">
+    <div class="eyebrow grad-text">Preguntas frecuentes</div>
+    <h2>Lo que todos preguntan</h2>
+    <div class="faq">
+      <details><summary>¿Necesito internet?</summary><p>No. Echo funciona completamente dentro de tu Mac, incluso en modo avión. Solo necesitas internet para descargarlo.</p></details>
+      <details><summary>¿Qué pasa con mi voz y mis textos?</summary><p>Se quedan en tu Mac. Echo no envía audio ni texto a ningún servidor, no tiene cuentas y no usa la nube. Puedes borrar tu historial cuando quieras.</p></details>
+      <details><summary>¿Funciona en cualquier aplicación?</summary><p>Sí: en cualquier lugar donde puedas escribir con el teclado. Echo pega el texto donde está tu cursor.</p></details>
+      <details><summary>¿Qué idiomas entiende?</summary><p>Español e inglés, y detecta automáticamente cuál estás hablando. Funciona mejor si cada frase está en un solo idioma; si mezclas los dos dentro de la misma frase, a veces traduce una parte.</p></details>
+      <details><summary>¿Qué Mac necesito?</summary><p>Cualquier Mac con macOS 13 (Ventura) o posterior, con procesador Intel o Apple Silicon (M1, M2, M3, M4). En los Mac con Apple Silicon es todavía más rápido.</p></details>
+      <details class="js-unsigned"><summary>¿Cómo lo instalo?</summary><p>Abre el archivo descargado y arrastra Echo a Aplicaciones. Si macOS dice que no puede verificar la app, ve a <b>Configuración del Sistema › Privacidad y seguridad</b> y haz clic en <b>Abrir de todos modos</b>. Solo la primera vez. Al abrirlo, Echo te guía paso a paso para dar los permisos.</p></details>
+      <details><summary>¿Cómo me suscribo?</summary><p>Escríbenos por WhatsApp. Pagas por transferencia o Deuna, $5 por un mes o $50 por un año, y te enviamos tu clave; la pegas en Echo › Licencia y listo. Unos días antes de que venza, Echo te avisa para renovarla. Si no renuevas, no se cobra nada: simplemente deja de dictar, y tu historial se conserva.</p></details>
+      <details><summary>¿Puedo usarlo en varias Mac?</summary><p>Cada licencia es para una Mac. Si cambias de computadora, puedes desactivarla en la anterior y activarla en la nueva.</p></details>
+    </div>
+  </section>
+
+  <div class="final">
+    <img src="img/icon.png" alt="">
+    <h2>Deja de escribir.<br><span class="grad-text">Empieza a hablar.</span></h2>
+    <p class="sub" style="margin: 0 auto 30px;">Descarga Echo y pruébalo gratis durante 14 días.</p>
+    <div class="cta">
+      <a class="btn btn-primary js-download" href="#">Descargar Echo gratis</a>
+      <a class="btn btn-ghost js-buy" href="#">Hablar con nosotros</a>
+    </div>
+  </div>
+
+  <footer>
+    <span>© <span id="year"></span> Echo · Hecho en Cuenca, Ecuador 🇪🇨</span>
+    <span><span data-config="EMAIL"></span></span>
+  </footer>
+</main>
+
+<script>
+  // Config → page
+  document.querySelectorAll("[data-config]").forEach(el => { el.textContent = CONFIG[el.dataset.config] || ""; });
+  document.querySelectorAll(".js-download").forEach(a => a.href = CONFIG.DOWNLOAD);
+  const buy = CONFIG.WHATSAPP
+    ? "https://wa.me/" + CONFIG.WHATSAPP + "?text=" + encodeURIComponent("Hola, quiero suscribirme a Echo.")
+    : CONFIG.EMAIL ? "mailto:" + CONFIG.EMAIL + "?subject=" + encodeURIComponent("Suscripción a Echo") : null;
+  document.querySelectorAll(".js-buy").forEach(a => buy ? (a.href = buy) : a.classList.add("hidden"));
+  if (!CONFIG.PRICE) document.querySelector(".plan.main .amount").replaceWith(Object.assign(document.createElement("div"),
+    { className: "per", style: "margin-top:14px", textContent: "Escríbenos para conocer el precio de lanzamiento." }));
+  if (CONFIG.NOTARIZED) document.querySelector(".js-unsigned p").textContent =
+    "Abre el archivo descargado y arrastra Echo a Aplicaciones. Al abrirlo, Echo te guía paso a paso para dar los permisos.";
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  // Live replica of Echo's recording card: a scrolling waveform that follows a simulated voice,
+  // in the app's own style (rounded bars, blue→violet→pink, dots during pauses, fade on the left).
+  const canvas = document.getElementById("wave"), ctx = canvas.getContext("2d");
+  const BARS = 110, STEP = 1000 / 50;  // one bar per 20 ms, like the app
+  let levels = new Array(BARS + 1).fill(0), last = performance.now(), acc = 0, t0 = performance.now();
+  let speaking = true, phaseEnd = 2600;
+  function voice(ms) { // syllable-like bursts with pauses
+    if (ms > phaseEnd) { speaking = !speaking; phaseEnd = ms + (speaking ? 1800 + Math.random() * 1600 : 380 + Math.random() * 500); }
+    if (!speaking) return Math.random() * 0.02;
+    const syll = Math.abs(Math.sin(ms / 95)) * 0.65 + Math.abs(Math.sin(ms / 37)) * 0.25;
+    return Math.min(1, syll * (0.55 + 0.45 * Math.sin(ms / 900)) + Math.random() * 0.08);
+  }
+  function draw(now) {
+    const dpr = window.devicePixelRatio || 1, w = canvas.clientWidth, h = canvas.clientHeight;
+    if (canvas.width !== w * dpr) { canvas.width = w * dpr; canvas.height = h * dpr; }
+    acc += now - last; last = now;
+    while (acc >= STEP) { acc -= STEP; levels.push(voice(now - t0)); levels.shift(); }
+    const frac = acc / STEP, padX = 22, H = h - 34, slot = (w - padX * 2) / BARS, bw = Math.max(1.4, slot * 0.58);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.clearRect(0, 0, w, h);
+    const g = ctx.createLinearGradient(padX, 0, w - padX, 0);
+    g.addColorStop(0, "#4dd9f2"); g.addColorStop(.5, "#8c80ff"); g.addColorStop(1, "#f272d9");
+    ctx.fillStyle = g;
+    for (let j = 0; j <= BARS; j++) {
+      const v = 0.25 * (levels[j - 1] || 0) + 0.5 * levels[j] + 0.25 * (levels[j + 1] || 0);
+      const bh = Math.max(bw, v * H), x = padX + (j - frac) * slot + (slot - bw) / 2;
+      if (x < padX - slot || x > w - padX) continue;
+      ctx.globalAlpha = Math.min(1, 0.1 + (x - padX) / ((w - padX * 2) * 0.3));
+      ctx.beginPath(); ctx.roundRect(x, h / 2 - bh / 2, bw, bh, bw / 2); ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+    const s = Math.floor((now - t0) / 1000) % 60;
+    document.getElementById("clock").textContent = "0:" + String(s).padStart(2, "0");
+    requestAnimationFrame(draw);
+  }
+  if (!matchMedia("(prefers-reduced-motion: reduce)").matches) requestAnimationFrame(draw);
+
+  // Text "appearing" in the app below, alternating Spanish and English.
+  const samples = [
+    ["Correo", "Hola María, te confirmo la reunión del jueves a las diez. ¿Puedes enviarme el informe antes?"],
+    ["WhatsApp", "Ya estoy saliendo de la oficina, llego a Cuenca en veinte minutos."],
+    ["Slack", "Can we move the launch to Friday? The design team needs one more day."],
+    ["Notas", "Ideas para el negocio: vender en Cuenca primero, luego en Quito y Guayaquil."],
+  ];
+  const typed = document.getElementById("typed"), appname = document.getElementById("appname");
+  let si = 0;
+  async function cycle() {
+    const [app, text] = samples[si++ % samples.length];
+    appname.textContent = app; typed.textContent = "";
+    await new Promise(r => setTimeout(r, 2600));          // "speaking"
+    const words = text.split(" ");
+    for (let i = 0; i < words.length; i++) { typed.textContent += (i ? " " : "") + words[i]; await new Promise(r => setTimeout(r, 35)); }
+    await new Promise(r => setTimeout(r, 3200));
+    cycle();
+  }
+  cycle();
+</script>
+</body>
+</html>
