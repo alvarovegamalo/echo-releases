@@ -1,9 +1,9 @@
 {
- "version": "1.1.1",
- "build": 4,
- "url": "https://github.com/alvarovegamalo/echo-releases/releases/download/v1.1.1/Echo-1.1.1.dmg",
+ "version": "1.2.0",
+ "build": 6,
+ "url": "https://github.com/alvarovegamalo/echo-releases/releases/download/v1.2.0/Echo-1.2.0.dmg",
  "notes": {
-  "es": "Echo ahora es pago único: lo compras una vez y es tuyo.",
-  "en": "Echo is now a one-time purchase: buy it once and it's yours."
+  "es": "Ya no repite frases cortas (\"Sure. Sure.\"), no traduce ni inventa texto al mezclar inglés y español. Texto en vivo mientras hablas que ya no cambia lo que dijiste. Enter detiene y pega. Comandos de voz y mejoras en reuniones.",
+  "en": "No more repeated short phrases (\"Sure. Sure.\"), no translated or invented text when mixing English and Spanish. Live text while you speak that no longer changes what you said. Enter stops and pastes. Voice commands and meeting improvements."
  }
 }
