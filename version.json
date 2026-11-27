@@ -1,9 +1,9 @@
 {
- "version": "1.2.0",
- "build": 6,
- "url": "https://github.com/alvarovegamalo/echo-releases/releases/download/v1.2.0/Echo-1.2.0.dmg",
+ "version": "1.3.0",
+ "build": 7,
+ "url": "https://github.com/alvarovegamalo/echo-releases/releases/download/v1.3.0/Echo-1.3.0.dmg",
  "notes": {
-  "es": "Ya no repite frases cortas (\"Sure. Sure.\"), no traduce ni inventa texto al mezclar inglés y español. Texto en vivo mientras hablas que ya no cambia lo que dijiste. Enter detiene y pega. Comandos de voz y mejoras en reuniones.",
-  "en": "No more repeated short phrases (\"Sure. Sure.\"), no translated or invented text when mixing English and Spanish. Live text while you speak that no longer changes what you said. Enter stops and pastes. Voice commands and meeting improvements."
+  "es": "Ya no traduce al español un dictado largo en inglés ni corta el texto después de la primera frase. Nuevo: estilos de escritura (correo, mensaje, formal, lista) en Macs con Apple silicon, y Echo aprende de tus correcciones en el historial. El texto en vivo ya no se muestra en Macs Intel.",
+  "en": "No longer translates a long English dictation into Spanish or cuts the text after the first sentence. New: writing styles (email, message, formal, list) on Apple silicon Macs, and Echo learns from your corrections in History. Live text is no longer shown on Intel Macs."
  }
 }
